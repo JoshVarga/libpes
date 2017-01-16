@@ -1,0 +1,702 @@
+CEmbCirc
+=============
+BlockDescription = new StitchBlockDescription();
+            BlockDescription.Read(br);
+
+            Unknown1 = br.ReadInt16(); // 0
+            Debug.Assert(Unknown1 == 0);
+            CircleType = br.ReadInt16();
+            StartAngle = br.ReadSingle();
+            EndAngle = br.ReadSingle();
+            Left = br.ReadInt16();
+            Top = br.ReadInt16();
+            Right = br.ReadInt16();
+            Bottom = br.ReadInt16();
+
+CEmbDText
+=================
+Left = br.ReadInt16();
+            Top = br.ReadInt16();
+            Right = br.ReadInt16();
+            Bottom = br.ReadInt16();
+            LeftPosition = br.ReadInt16();
+            TopPosition = br.ReadInt16();
+            RightPosition = br.ReadInt16(); 
+            BottomPosition = br.ReadInt16();
+            Transform = new AffineTransform(br.ReadSingle(), br.ReadSingle(), br.ReadSingle(),
+                       br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
+            //NumberOfLetters = br.ReadInt16();
+            LetterDescription = new List<IPesBlock>();
+            SubBlocks = new List<IPesBlock>();
+
+                Pes.Pes.ReadSubObjects(br, pes, SubBlocks);
+           
+
+            //22
+            _b47 = br.ReadInt16(); // just added
+            _b48 = br.ReadInt16();
+            _b49 = br.ReadSingle();
+            _b51 = br.ReadInt16();
+            _b52 = br.ReadInt16();
+            _b53 = br.ReadInt16();
+            
+            _b56 = br.ReadSingle();
+            _b57 = br.ReadSingle();
+            _b58 = br.ReadInt16();
+            _b59 = br.ReadInt16();
+
+CEmbLine
+===============
+StitchBlock = new StitchBlockDescription();
+if (pes.Header.Version == 3.0f)
+{
+    Readv3(br, pes);
+    return;
+}
+if (pes.Header.Version >= 6)
+{
+    Readv6(br, pes);
+    return;
+}
+// Version 3 - 0x5B bytes
+
+StitchBlock.Left = br.ReadInt16();
+StitchBlock.Top = br.ReadInt16();
+StitchBlock.Right = br.ReadInt16();
+StitchBlock.Bottom = br.ReadInt16();
+
+StitchBlock.LeftPosition = br.ReadInt16();
+StitchBlock.TopPosition = br.ReadInt16();
+StitchBlock.RightPosition = br.ReadInt16();
+StitchBlock.BottomPosition = br.ReadInt16(); 
+StitchBlock.Transform = new AffineTransform(br.ReadSingle(), br.ReadSingle(), br.ReadSingle(),
+            br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
+int openPath = br.ReadInt16();
+Debug.Assert(openPath == 1 || openPath == 0);
+StitchBlock.IsOpenPath = (openPath == 1);
+StitchBlock.UseOutline = (br.ReadInt16() == 1);
+StitchBlock.OutlineStitchType = br.ReadInt16();//(0 zigzag, 1 run stitch, 2 Motif stitch, 3 E/V Stitch, 4 Triple stitch)
+int something2z = br.ReadInt16();
+Debug.Assert(something2z == 0);
+StitchBlock.ZigzagWidth = br.ReadInt16() / 10.0f; // was color
+StitchBlock.ZigzagDensity = br.ReadInt16() / 10.0f;
+StitchBlock.OutlineRunPitch = br.ReadInt16();
+StitchBlock.RunStitchRunTimes = br.ReadInt16();
+
+//StitchBlock.OutlineUseHalfStitch = (br.ReadInt16() == 1);
+if(pes.Header.Version >= 5.0f)
+{
+    StitchBlock.MotifLine = new Motif();
+    StitchBlock.MotifLine.Read(br);
+    StitchBlock.MotifLineRunPitch = br.ReadInt16();
+}
+
+if (pes.Header.Version >= 5.0f)
+{
+    StitchBlock.EStitchOrVStitch = br.ReadInt16();
+    StitchBlock.EvStitchTallWidth = br.ReadInt16();
+    StitchBlock.EvStitchHeight = br.ReadInt16();
+    StitchBlock.EvStitchPointWidth = br.ReadInt16();
+    StitchBlock.EvStitchRunTimes = br.ReadInt16();
+    StitchBlock.EvStitchStrokeTimes = br.ReadInt16();
+    StitchBlock.EvStitchArrange = br.ReadInt16();
+}
+bool UseFill = (br.ReadInt16() == 1);
+int FillType = br.ReadInt16();
+int RegionDensity = br.ReadInt16();
+
+//bool UseGradation = (br.ReadInt16() == 1);
+//int numberOfGradiationSteps = br.ReadInt16();
+//GradationValues = new List<int>();
+//for (int i = 0; i < numberOfGradiationSteps; i++)
+//{
+//    GradationValues.Add(br.ReadInt16());
+//}
+//UseAdditionalColorInGradation = (br.ReadInt16() == 1);
+
+//int _b37 = br.ReadInt16(); // 1
+//Debug.Assert(_b37 == 1);
+//bool IsStitchDirectionVariable = (br.ReadInt16() == 1); // probably not available in 3.0
+//int StitchDirection = br.ReadInt16();
+//int _b40 = br.ReadInt16();
+//Debug.Assert(_b40 == 0);
+
+int direction = br.ReadInt16();
+int omething2 = br.ReadInt16();
+int StepPitch = br.ReadInt16();
+int Frequency = br.ReadInt16();
+
+int pullCompensation = br.ReadInt16();
+int something9 = br.ReadInt16();
+int something10 = br.ReadInt16();
+int something11 = br.ReadInt16();
+int something12 = br.ReadInt16();
+int something13 = br.ReadInt16(); // 75
+int something14 = br.ReadInt16(); // 75
+int something15 = br.ReadInt16();
+int something16 = br.ReadInt16();
+int something17 = br.ReadInt16(); 
+int something18 = br.ReadInt16();
+//byte[] extraVals = br.ReadBytes(pesHeader.CEmbLineHeaderLength - 96);
+var pointList = new List<Point>();
+int numberOfPoints = br.ReadInt16();
+for (int i = 0; i < numberOfPoints; i++)
+{
+    var q = new LinePoint();
+
+    q.P1 = new Point(br.ReadInt16(), br.ReadInt16());
+    q.P2 = new Point(br.ReadInt16(), br.ReadInt16());
+    q.P3 = new Point(br.ReadInt16(), br.ReadInt16());
+    q.StitchType = br.ReadInt16();
+    LinePoints.Add(q);
+    pointList.Add(q.P1);
+}
+
+CEmbMText
+====================
+Left = br.ReadInt16();
+Top = br.ReadInt16();
+Right = br.ReadInt16();
+Bottom = br.ReadInt16();
+LeftPosition = br.ReadInt16();
+TopPosition = br.ReadInt16();
+RightPosition = br.ReadInt16();
+BottomPosition = br.ReadInt16();
+Transform = new AffineTransform(br.ReadSingle(), br.ReadSingle(), br.ReadSingle(),
+           br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
+_b21 = br.ReadInt16(); // 3
+
+CEmbNText
+===================
+Left = br.ReadInt16();
+Top = br.ReadInt16();
+Right = br.ReadInt16();
+Bottom = br.ReadInt16();
+
+LeftPosition = br.ReadInt16();
+TopPosition = br.ReadInt16();
+RightPosition = br.ReadInt16();
+BottomPosition = br.ReadInt16();
+
+Transform = new AffineTransform(br.ReadSingle(), br.ReadSingle(), br.ReadSingle(),
+            br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
+SubBlocks = new List<IPesBlock>();
+Pes.Pes.ReadSubObjects(br, pes, SubBlocks);
+
+CEmbOne
+=====================
+Left = br.ReadInt16();
+            Top = br.ReadInt16();
+            Right = br.ReadInt16();
+            Bottom = br.ReadInt16();
+
+            LeftPosition = br.ReadInt16();
+            TopPosition = br.ReadInt16();
+            RightPosition = br.ReadInt16();
+            BottomPosition = br.ReadInt16();
+
+            Transform = new AffineTransform(br.ReadSingle(), br.ReadSingle(), br.ReadSingle(),
+                        br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
+            
+            Unknown = br.ReadInt16();
+            TranslateX = br.ReadInt16();
+            TranslateY = br.ReadInt16();
+            Width = br.ReadInt16();
+            Height = br.ReadInt16();
+            OtherData = br.ReadBytes(8);
+            SubBlocks = new List<IPesBlock>();
+            Pes.ReadSubObjects(br, pes, SubBlocks);
+
+CEmbPunch
+===================
+TranslateX = br.ReadInt16();
+            TranslateY = br.ReadInt16();
+            Width = br.ReadInt16();
+            Height = br.ReadInt16();
+
+            TranslateX2 = br.ReadInt16();
+            TranslateY2 = br.ReadInt16();
+            Width2 = br.ReadInt16();
+            Height2 = br.ReadInt16();
+
+            Transform = new AffineTransform(br.ReadSingle(), br.ReadSingle(), br.ReadSingle(),
+                        br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
+
+            SubBlocks = new List<IPesBlock>();
+            Pes.Pes.ReadSubObjects(br, pes, SubBlocks);
+
+CEmbRect
+=======================
+StitchBlock.Read(br);
+            CornerRadius = br.ReadInt16();
+            int _b104 = br.ReadInt16(); // 740
+            int _b105 = br.ReadInt16(); // 688
+            int _b106 = br.ReadInt16(); // 1183
+            int _b107 = br.ReadInt16(); // 1027
+            int _b108 = br.ReadInt16();
+
+CEmbSpecialShape
+======================
+var sbd = new StitchBlockDescription();
+            sbd.Read(br);
+            _otherData = br.ReadBytes(83);
+            //br.BaseStream.Position += 83;
+
+CGroupObject
+=======================
+int objectIdentifier = br.ReadInt16();
+            int itemCountInGroup = br.ReadInt16();
+            for(int i = 0; i< itemCountInGroup; i++)
+            {
+                ObjectsInGroup.Add(br.ReadInt16());
+            }
+
+CLetter
+====================
+byte[] character = br.ReadBytes(1);
+            if (character[0] >= 0x80)
+            {
+                character[0] -= 0x20;
+            }
+            Character = Encoding.UTF8.GetString(character);
+            b1 = br.ReadByte(); // 0
+            FontIndex = br.ReadInt16(); // 0
+            _b2 = br.ReadSingle(); // 100.0
+            _b4 = br.ReadSingle();// 0
+            _b6 = br.ReadSingle();// 0
+            _b8 = br.ReadInt16();// 0
+            _b9 = br.ReadInt16();// 0
+            Density = br.ReadInt16() / 10.0f;// 50
+            _b11 = br.ReadInt16();
+            StitchType = br.ReadInt16(); // 0 Satin, 1 Fill Stitch, 2 Prog Fill Stitch
+            _b13 = br.ReadInt16(); // 30
+            _b14 = br.ReadInt16(); // 40
+            _b15 = br.ReadInt16(); // 0
+            _useHalfStitch = (br.ReadInt16() == 1);
+            _b17 = br.ReadInt16();
+            _b18 = br.ReadInt16();
+            _b19 = br.ReadInt16();
+            _b20 = br.ReadInt16();
+            _b21 = br.ReadInt16();
+            _b22 = br.ReadInt16();
+            _b23 = br.ReadInt16();
+            _b24 = br.ReadInt16();
+            _b25 = br.ReadInt16();
+            _b26 = br.ReadInt16();
+            _b27 = br.ReadInt16();
+            ColorIndex = br.ReadInt16(); // 1
+            _b29 = br.ReadInt16();
+            _b30 = br.ReadInt16();
+            _b31 = br.ReadInt16();
+            _b32 = br.ReadInt16();
+            _b33 = br.ReadInt16();
+            _b34 = br.ReadInt16();
+            _b35 = br.ReadInt16();
+            _b36 = br.ReadInt16();
+            _b37 = br.ReadInt16();
+            _b38 = br.ReadInt16();
+            _b39 = br.ReadInt16();
+            _b40 = br.ReadInt16();
+            _b41 = br.ReadInt16(); // 50
+            _b42 = br.ReadInt16(); // 25
+            _b43 = br.ReadInt16(); // 20
+            _b44 = br.ReadInt16(); // 1
+            _b45 = br.ReadInt16(); // 1
+            _b46 = br.ReadInt16(); // 0
+            PullCompensation = br.ReadInt16() / 10.0f;
+
+CMExeEmb
+===================
+Complex TODO
+
+CSewFigSeg
+====================
+sectionsRead++;
+                     var ss = new SatinStitch();
+                     if (pes.Header.PesVersion == PesVersion.Version6 || pes.Header.PesVersion == PesVersion.Version8)
+                     {
+                         ss.Readv6And8(br, pes.Header);
+                     }
+                     else
+                     {
+                         ss.Read(br, pes);
+                     }
+                    //Render the Satin stitches
+                    //Pattern ssp = ss.Render(Pattern, pesHeader);
+                    //foreach(Stitch s in ssp.StitchList)
+                    //{
+                    //    stitchData.Add(new Point((int)s.X,(int)s.Y));
+                    //}
+                    Blocks.Add(ss);
+                    
+CSewSeg
+===============
+SubBlocks = new List<IPesBlock>();
+            bool doneWithStitches = false;
+            
+            bool isColorMarkerSet = false;
+            List<Point> stitchData;
+
+            while (!doneWithStitches)
+            {
+                stitchData = new List<Point>();
+                var currentBlock = new PesStitchBlock();
+
+                int blockType = br.ReadInt16(); //if this is equal to newColorMarker, it's time to change Color
+                if (blockType == 16716)
+                    break;
+                int colorIndex = br.ReadInt16();
+                if (colorIndex == 16716)
+                    break;
+                int remainingStitches = br.ReadInt16();
+                if (remainingStitches == 16716)
+                    break;
+                if (!isColorMarkerSet)
+                {
+                    isColorMarkerSet = true;
+                }
+                while (remainingStitches >= 0)
+                {
+                    int xValue = br.ReadInt16();
+                    if (xValue == -32765)
+                    {
+                        break;//drop out before we start eating into the next section 
+                    }
+                    if (remainingStitches == 0 && xValue != -32765) // 0xFFFF8003 this is the one we should hit at the end of the stitch blocks
+                    {
+                        doneWithStitches = true;
+                        break;
+                    }
+                    if (xValue == 16716 || xValue == 8224)
+                    {
+                        doneWithStitches = true;
+                        break;
+                    }
+                    int yValue = br.ReadInt16();
+                    if (yValue == 16716 || yValue == 8224)
+                    {
+                        doneWithStitches = true;
+                        break;
+                    }
+                    stitchData.Add(new Point(xValue, yValue));
+                    remainingStitches--;
+                }
+
+                currentBlock.Stitches = new Point[stitchData.Count];
+                stitchData.CopyTo(currentBlock.Stitches);
+                currentBlock.ColorIndex = colorIndex;
+                currentBlock.Color = Pes.Pes.ThreadColors[colorIndex % 65].Color;
+                currentBlock.StitchesTotal = stitchData.Count;
+                SubBlocks.Add(currentBlock);
+                
+                //blocks.Add(currentBlock);
+
+            }
+            
+CTTFLetter
+==============
+            Left = br.ReadInt16();
+            Top = br.ReadInt16();
+            Right = br.ReadInt16();
+            Bottom = br.ReadInt16();
+
+            LeftPosition = br.ReadInt16();
+            TopPosition = br.ReadInt16();
+            RightPosition = br.ReadInt16();
+            BottomPosition = br.ReadInt16();
+
+            br.BaseStream.Position += 83;
+
+SatinStitch
+==================
+ColorIndex = br.ReadInt16();
+            int remainingStitches = br.ReadInt16();
+
+            for (int i = 0; i < remainingStitches; i++)
+            {
+                short xValue = br.ReadInt16();
+                short yValue = br.ReadInt16();
+                if ((i % 2) == 0)
+                {
+                    SideOne.Add(new PesPoint(new Point(xValue, yValue)));
+                }
+                else
+                {
+                    SideTwo.Add(new PesPoint(new Point(xValue, yValue)));
+                }
+            }
+            RunPitch = br.ReadInt16();
+            Something = br.ReadInt16();
+            Density = br.ReadInt16();
+            int something2 = br.ReadInt16(); // 20
+            StepPitch = br.ReadInt16();
+            FrequencyPercent = br.ReadInt16();
+            ProgrammableFillBaseSewingStitchType = br.ReadInt16();
+            HalfStitch = (br.ReadInt16() == 1);
+            S3 = br.ReadInt16();
+            ProgrammableFillWidth = br.ReadInt16();
+            ProgrammableHeight = br.ReadInt16();
+            ProgrammableFillOffsetType = br.ReadInt16();
+            ProgrammableFillRowOffset = br.ReadInt16();
+
+Readv6And8(BinaryReader br, PesHeader pesHeader)
+        {
+            ColorIndex = br.ReadInt16();
+            
+            int sideOneStitches = br.ReadInt16();
+            for (int i = 0; i < sideOneStitches; i++)
+            {
+                SideOne.Add(PesPoint.Read(br));
+            }
+            int sideTwoStitches = br.ReadInt16();
+            for (int i = 0; i < sideTwoStitches; i++)
+            {
+                SideTwo.Add(PesPoint.Read(br));
+            }
+            RunPitch = br.ReadInt16();
+            BlockType = br.ReadInt16(); // Satin = 0, Fill = 1, Programmable Fill = 2
+            Density = br.ReadInt16();
+            int something2 = br.ReadInt16();
+            Debug.Assert(something2 == 0);
+            StepPitch = br.ReadInt16();
+            FrequencyPercent = br.ReadInt16();
+            ProgrammableFillBaseSewingStitchType = br.ReadInt16();
+            HalfStitch = (br.ReadInt16() == 1);
+            S3 = br.ReadInt16(); // 0
+            ProgrammableFillWidth = br.ReadInt16();
+            ProgrammableHeight = br.ReadInt16();
+            ProgrammableFillOffsetType = br.ReadInt16();
+            ProgrammableFillRowOffset = br.ReadInt16();
+            ProgrammableFillColumnOffset = br.ReadInt16();
+            ProgrammableFillDirection = br.ReadInt16();
+            ProgrammableFillBaseSewing = (br.ReadInt16() == 1);
+            PullCompensation = br.ReadInt16();
+            int _s11 = br.ReadInt16(); // 0
+            Debug.Assert(_s11 == 0);
+            int _s12 = br.ReadInt16(); // 0
+            Debug.Assert(_s12 == 0);
+            int _s13 = br.ReadInt16(); // 0
+            Debug.Assert(_s13 == 0);
+            int _s14 = br.ReadInt16(); // 0
+            Debug.Assert(_s14 == 0);
+            FeatherTopLength = br.ReadInt16();
+            FeatherBottomLength = br.ReadInt16();
+            PipingDensity = br.ReadInt16();
+            PipingRunPitch = br.ReadInt16();
+            PipingFrequency = br.ReadInt16(); // Version 8 is different somewhere around here
+            int numberOfStamps = br.ReadInt16(); 
+            Stamps = new List<StampDescription>();
+            for (int i = 0; i < numberOfStamps; i++)
+            {
+                Stamps.Add(StampDescription.Read(br));    
+            }
+            
+StampDescription
+====================
+sd._top = br.ReadInt16();
+            sd._left = br.ReadInt16();
+            sd._width = br.ReadInt16();
+            sd._height = br.ReadInt16();
+            sd._angle = br.ReadInt16();
+            sd._stampIndex = br.ReadInt16();
+            
+Motif
+==================
+Index = br.ReadInt16();
+            Width = br.ReadInt16();
+            Height = br.ReadInt16();
+            HArrange = br.ReadInt16();
+            VArrange = br.ReadInt16();
+            
+MotifData
+================
+int numberOfTileLines = br.ReadInt16();
+for (int j = 0; j < numberOfTileLines; j++)
+{
+    something1 = br.ReadInt16();
+    something2 = br.ReadInt16();
+    something3 = br.ReadInt16();
+    something4 = br.ReadInt16();
+    int motifLinePointCount = br.ReadInt16();
+    List<Point> pointList = new List<Point>();
+    for (int k = 0; k < motifLinePointCount; k++)
+    {
+        pointList.Add(new Point(br.ReadInt16(), br.ReadInt16()));
+    }
+    MotifLines.Add(pointList);
+}
+  
+Pat
+====================
+int numberOfTileLines = br.ReadInt16();
+for (int j = 0; j < numberOfTileLines; j++)
+{
+    br.ReadInt16();
+    br.ReadInt16();
+    br.ReadInt16();
+    br.ReadInt16();
+    int tileLinePointCount = br.ReadInt16();
+    var pointList = new List<Point>();
+    for (int i = 0; i < tileLinePointCount; i++)
+    {
+        pointList.Add(new Point(br.ReadInt16(), br.ReadInt16()));
+    }
+    PatternLines.Add(pointList);
+}  
+        
+PesPoint
+=====================
+var temp = new PesPoint();
+            temp.P1 = new Point(br.ReadInt16(), br.ReadInt16());
+            temp.P2 = new Point(br.ReadInt16(), br.ReadInt16());
+            temp.P3 = new Point(br.ReadInt16(), br.ReadInt16());
+            temp.StitchType = br.ReadInt16();
+
+PesStitchBlock
+===================
+            
+int tempcolorIndex = -1;
+if (this.ColorIndex != tempcolorIndex)
+{
+    if (pesHeader.PesVersion != PesVersion.Version6)
+    {
+        pattern.AddColor(Pes.ThreadColors[this.ColorIndex % 65]);
+    }
+    pattern.AddStitchRelative(0, 0, StitchTypes.Stop);
+    tempcolorIndex = this.ColorIndex;
+}
+foreach (Point p in this.Stitches)
+{
+    pattern.AddStitchAbsolute(p.X * 10, p.Y * 10, StitchTypes.Normal);
+}            
+
+StitchBlockDescription
+===========================
+Left = br.ReadInt16();
+Top = br.ReadInt16();
+Right = br.ReadInt16();
+Bottom = br.ReadInt16();
+
+LeftPosition = br.ReadInt16();
+TopPosition = br.ReadInt16();
+RightPosition = br.ReadInt16();
+BottomPosition = br.ReadInt16();
+Transform = new AffineTransform(br.ReadSingle(), br.ReadSingle(), br.ReadSingle(),
+                                 br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
+IsOpenPath = (br.ReadInt16() == 1);
+UseOutline = (br.ReadInt16() == 1);
+OutlineStitchType = br.ReadInt16(); // 0 = Zigzag, 1 = run Stitch
+int _b3 = br.ReadInt16(); // 0 thread, 2 Applique Material, 
+ZigzagWidth = br.ReadInt16() / 10.0f;
+ZigzagDensity = br.ReadInt16() / 10.0f;
+OutlineRunPitch = br.ReadInt16();
+RunStitchRunTimes = br.ReadInt16();
+
+OutlineUseHalfStitch = (br.ReadInt16() == 1);
+
+MotifLine = new Motif();
+MotifLine.Read(br);
+
+MotifLineRunPitch = br.ReadInt16();
+
+EStitchOrVStitch = br.ReadInt16();
+EvStitchTallWidth = br.ReadInt16();
+EvStitchHeight = br.ReadInt16();
+EvStitchPointWidth = br.ReadInt16();
+EvStitchRunTimes = br.ReadInt16();
+EvStitchStrokeTimes = br.ReadInt16();
+EvStitchArrange = br.ReadInt16();
+
+UseFill = (br.ReadInt16() == 1);
+FillType = br.ReadInt16();
+RegionDensity = br.ReadInt16();
+UseGradation = (br.ReadInt16() == 1);
+int numberOfGradiationSteps = br.ReadInt16();
+GradationValues = new List<int>();
+for(int i = 0; i < numberOfGradiationSteps; i++)
+{
+    GradationValues.Add(br.ReadInt16());
+}
+UseAdditionalColorInGradation = (br.ReadInt16() == 1); 
+int _b37 = br.ReadInt16(); // 1 
+Debug.Assert(_b37 == 1);
+IsStitchDirectionVariable = (br.ReadInt16() == 1);
+StitchDirection = br.ReadInt16();
+int _b40 = br.ReadInt16();
+Debug.Assert(_b40 == 0);
+StepPitch = br.ReadInt16();
+Frequency = br.ReadInt16();
+int _b43 = br.ReadInt16(); // 1
+Debug.Assert(_b43 == 1); // Playboy-10 doesnt match
+int _b44 = br.ReadInt16(); // 0
+Debug.Assert(_b44 == 0);
+int _b45 = br.ReadInt16(); // 0
+Debug.Assert(_b45 == 0);
+int _b46 = br.ReadInt16(); // 5
+Debug.Assert(_b46 == 5);
+int _b47 = br.ReadInt16();  //20
+Debug.Assert(_b47 == 20);
+int _b48 = br.ReadInt16(); // 10
+Debug.Assert(_b48 == 10);
+RunningStitchPath = br.ReadInt16();
+int _b50 = br.ReadInt16(); // 0
+Debug.Assert(_b50 == 0);
+ProgrammableFillWidth = br.ReadInt16();
+ProgrammableFillHeight = br.ReadInt16();
+int _b53 = br.ReadInt16(); // 0
+Debug.Assert(_b53 == 0);
+int _b54 = br.ReadInt16(); // 0
+Debug.Assert(_b54 == 0);
+int _b55 = br.ReadInt16(); // 0
+Debug.Assert(_b55 == 0);
+int _b56 = br.ReadInt16(); // 0
+Debug.Assert(_b56 == 0);
+int _b57 = br.ReadInt16(); // 0 seen it as 50 in version 4
+//Debug.Assert(_b57 == 0); 
+PullCompensation = br.ReadInt16() / 10.0f;
+
+// Motif section
+
+UseMotifPattern1 = (br.ReadInt16() == 1); // default: false
+
+MotifFillPattern1 = new Motif();
+MotifFillPattern1.Read(br);
+
+UseMotifPattern2 = (br.ReadInt16() == 1);
+
+MotifFillPattern2 = new Motif();
+MotifFillPattern2.Read(br);
+
+MotifRowOffset = br.ReadInt16();
+MotifStitchDirection = br.ReadInt16(); // in degrees
+MotifRunPitch = br.ReadInt16(); //default: 100
+
+// CrossStitch section
+
+CrossStitchSizeInMM = br.ReadInt16(); // default: 25
+CrossStitchTimes = br.ReadInt16(); // default: 2
+
+RadialDensity = br.ReadInt16(); // default: 20
+RadialRunPitch = br.ReadInt16(); // default: 20
+RadialCenterX = br.ReadInt32(); // 961
+RadialCenterY = br.ReadInt32(); // 847
+
+ConcentricCircleDensity = br.ReadInt16(); // default: 20
+ConcentricCircleRunPitch = br.ReadInt16(); // default: 20
+ConcentricCircleCenterX = br.ReadInt32(); // 961
+ConcentricCircleCenterY = br.ReadInt32(); // 847
+
+SpiralDensity = br.ReadInt16(); // default : 20
+SpiralRunPitch = br.ReadInt16(); // default : 20
+
+OutlineEntryv1 = br.ReadInt16();
+OutlineEntry = br.ReadSingle();
+
+OutlineExitv1 = br.ReadInt16();
+OutlineExit = br.ReadSingle();
+
+RegionEntryv1 = br.ReadInt16();
+RegionEntry = br.ReadSingle();
+
+RegionExitv1 = br.ReadInt16();
+RegionExit = br.ReadSingle();

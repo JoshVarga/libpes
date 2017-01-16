@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B8242B0B-6557-484E-A6A1-598F0259EE6F}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>PesLib</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="affine-transform.c" />
+    <ClCompile Include="block-geometry.c" />
+    <ClCompile Include="pes-circ.c" />
+    <ClCompile Include="pes-dtext.c" />
+    <ClCompile Include="pes-line.c" />
+    <ClCompile Include="pes-mtext.c" />
+    <ClCompile Include="pes-ntext.c" />
+    <ClCompile Include="pes-one.c" />
+    <ClCompile Include="pes-punch.c" />
+    <ClCompile Include="pes-rect.c" />
+    <ClCompile Include="pes-special-shape.c" />
+    <ClCompile Include="pes-group-object.c" />
+    <ClCompile Include="pes-letter.c" />
+    <ClCompile Include="CMExeEmb.c" />
+    <ClCompile Include="pes-sew-fig-seg.c" />
+    <ClCompile Include="pes-sew-seg.c" />
+    <ClCompile Include="CTTFLetter.c" />
+    <ClCompile Include="pes-stamp-description.c" />
+    <ClCompile Include="pes_pat.c" />
+    <ClCompile Include="short-array.c" />
+    <ClCompile Include="helpers-binary.c" />
+    <ClCompile Include="pes-motif.c" />
+    <ClCompile Include="pes-motif-data.c" />
+    <ClCompile Include="pes-header.c" />
+    <ClCompile Include="PesLib.c" />
+    <ClCompile Include="pes-point.c" />
+    <ClCompile Include="pes-stitch-block.c" />
+    <ClCompile Include="point.c" />
+    <ClCompile Include="pes-satin-stitch.c" />
+    <ClCompile Include="stitch-block-description.c" />
+    <ClCompile Include="pes-thread.c" />
+    <ClCompile Include="pes-tile-line.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Notes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="affine-transform.h" />
+    <ClInclude Include="block-geometry.h" />
+    <ClInclude Include="pes-circ.h" />
+    <ClInclude Include="pes-dtext.h" />
+    <ClInclude Include="pes-line.h" />
+    <ClInclude Include="pes-mtext.h" />
+    <ClInclude Include="pes-ntext.h" />
+    <ClInclude Include="pes-one.h" />
+    <ClInclude Include="pes-point.h" />
+    <ClInclude Include="pes-punch.h" />
+    <ClInclude Include="pes-rect.h" />
+    <ClInclude Include="pes-special-shape.h" />
+    <ClInclude Include="pes-group-object.h" />
+    <ClInclude Include="pes-letter.h" />
+    <ClInclude Include="CMExeEmb.h" />
+    <ClInclude Include="pes-sew-fig-seg.h" />
+    <ClInclude Include="pes-sew-seg.h" />
+    <ClInclude Include="CTTFLetter.h" />
+    <ClInclude Include="pes-stamp-description.h" />
+    <ClInclude Include="pes-stext.h" />
+    <ClInclude Include="pes_pat.h" />
+    <ClInclude Include="short-array.h" />
+    <ClInclude Include="helpers-binary.h" />
+    <ClInclude Include="pes-motif.h" />
+    <ClInclude Include="pes-motif-data.h" />
+    <ClInclude Include="pes-header.h" />
+    <ClInclude Include="PesStitchBlock.h" />
+    <ClInclude Include="point.h" />
+    <ClInclude Include="pes-satin-stitch.h" />
+    <ClInclude Include="stitch-block-description.h" />
+    <ClInclude Include="pes-thread.h" />
+    <ClInclude Include="tile-line.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

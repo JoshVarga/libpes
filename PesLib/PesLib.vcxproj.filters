@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PesLib.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CMExeEmb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CTTFLetter.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="affine-transform.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers-binary.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="point.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="block-geometry.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="short-array.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-one.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-punch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-rect.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-special-shape.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-motif.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-motif-data.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-stitch-block.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-point.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-tile-line.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-ntext.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-letter.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-circ.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-dtext.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-line.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-mtext.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-group-object.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-sew-fig-seg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-sew-seg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-satin-stitch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stitch-block-description.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-header.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-thread.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes_pat.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pes-stamp-description.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Notes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CMExeEmb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CTTFLetter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PesStitchBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="affine-transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="helpers-binary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="block-geometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tile-line.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="short-array.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-special-shape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-rect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-punch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-one.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-ntext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-letter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-sew-seg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-line.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-sew-fig-seg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-motif.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-satin-stitch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-circ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-dtext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-mtext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-group-object.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-motif-data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stitch-block-description.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-stext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-thread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes_pat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pes-stamp-description.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
